@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarandë Local Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --azure: #1a4a6b;
+      --sea: #2e7da6;
+      --seafoam: #a8d8e8;
+      --terra: #c4714e;
+      --terra-light: #e8956d;
+      --sand: #f5edd8;
+      --sand-dark: #e8ddc4;
+      --cream: #faf7f0;
+      --olive: #5e6e3a;
+      --night: #12202e;
+      --text: #2a2a2a;
+      --muted: #7a7060;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── KEYFRAME ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-7px); }
+    }
+    @keyframes wave {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes ripple {
+      to { transform: scale(4); opacity: 0; }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(196, 113, 78, 0.4); }
+      50%       { box-shadow: 0 0 0 8px rgba(196, 113, 78, 0); }
+    }
+    @keyframes badgeFade {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes loaderDots {
+      0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+      40%            { opacity: 1;   transform: scale(1); }
+    }
+
+    /* ── LOADER ── */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: var(--azure);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-emoji { font-size: 40px; animation: float 1.4s ease-in-out infinite; }
+    .loader-text {
+      color: rgba(255,255,255,0.7);
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-top: 16px;
+    }
+    .loader-dots { display: flex; gap: 6px; margin-top: 20px; }
+    .loader-dots span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.6);
+      animation: loaderDots 1.2s ease-in-out infinite;
+    }
+    .loader-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .loader-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(160deg, var(--azure) 0%, var(--sea) 60%, #4aadcc 100%);
+      padding: 52px 24px 64px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0; right: 0;
+      height: 60px;
+      background: var(--cream);
+      clip-path: ellipse(55% 100% at 50% 100%);
+      z-index: 2;
+    }
+
+    /* animated wave */
+    .hero-wave-strip {
+      position: absolute;
+      bottom: 28px; left: 0;
+      width: 200%;
+      height: 44px;
+      display: flex;
+      opacity: 0.15;
+      animation: wave 8s linear infinite;
+    }
+    .hero-wave-strip svg { flex-shrink: 0; width: 50%; height: 100%; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+      animation: badgeFade 0.6s ease both 0.2s;
+    }
+    .hero h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.05;
+      margin-bottom: 8px;
+      animation: fadeUp 0.7s ease both 0.35s;
+    }
+    .hero h1 em { font-style: italic; color: var(--seafoam); }
+    .hero-sub {
+      color: rgba(255,255,255,0.78);
+      font-size: 15px;
+      font-weight: 300;
+      letter-spacing: 0.2px;
+      animation: fadeUp 0.7s ease both 0.5s;
+    }
+    .hero-icon {
+      font-size: 34px;
+      margin-bottom: 12px;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* ── STICKY TABS ── */
+    .tabs-wrapper {
+      padding: 24px 20px 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      position: sticky;
+      top: 0;
+      background: var(--cream);
+      z-index: 10;
+      transition: box-shadow 0.3s, padding 0.3s;
+    }
+    .tabs-wrapper.stuck {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.09);
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .tabs-wrapper::-webkit-scrollbar { display: none; }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      width: max-content;
+      min-width: 100%;
+      justify-content: center;
+    }
+    .tab {
+      background: none;
+      border: 1.5px solid var(--sand-dark);
+      color: var(--muted);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .tab:hover { transform: translateY(-1px); }
+    .tab.active {
+      background: var(--terra);
+      border-color: var(--terra);
+      color: #fff;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(196,113,78,0.35);
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding: 28px 20px 0; display: none; }
+    .section.visible { display: block; }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.45s ease both;
+    }
+    .section-header .icon { font-size: 26px; }
+    .section-header h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--azure);
+    }
+    .section-header h2 span { font-style: italic; color: var(--terra); }
+
+    /* ── TIP BOX ── */
+    .tip-box {
+      background: linear-gradient(135deg, #fdf3e7, #fae8d4);
+      border-left: 4px solid var(--terra-light);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 22px;
+      font-size: 13.5px;
+      color: #7a5030;
+      line-height: 1.5;
+      animation: fadeUp 0.45s ease both 0.05s;
+    }
+    .tip-box strong { color: var(--terra); }
+
+    /* ── CARDS ── */
+    .cards { display: flex; flex-direction: column; gap: 14px; padding-bottom: 36px; }
+
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      display: flex;
+      align-items: stretch;
+      transition: transform 0.22s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.22s ease;
+      position: relative;
+      cursor: pointer;
+      /* scroll-in state */
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .card.in-view {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.45s ease, transform 0.45s ease,
+                  box-shadow 0.22s ease;
+    }
+    .card.in-view:hover {
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+    }
+    .card.in-view:active { transform: scale(0.97); }
+
+    /* tap ripple */
+    .ripple-el {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(168, 216, 232, 0.35);
+      width: 60px; height: 60px;
+      margin-top: -30px; margin-left: -30px;
+      animation: ripple 0.55s linear;
+      pointer-events: none;
+    }
+
+    .card-accent { width: 6px; flex-shrink: 0; }
+    .accent-terra { background: var(--terra); }
+    .accent-sea   { background: var(--sea); }
+    .accent-olive { background: var(--olive); }
+    .accent-night { background: var(--night); }
+    .accent-gold  { background: #c9a84c; }
+
+    .card-body { padding: 16px; flex: 1; min-width: 0; }
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .card-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--azure);
+      line-height: 1.1;
+    }
+    .card-tag {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .tag-terra { background: #faeae2; color: var(--terra); }
+    .tag-sea   { background: #e2f0f7; color: var(--sea); }
+    .tag-olive { background: #eaf0e2; color: var(--olive); }
+    .tag-night { background: #e2e8f0; color: var(--night); }
+    .tag-gold  { background: #f7f0e2; color: #a07820; }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .card-desc.expanded {
+      display: block;
+      -webkit-line-clamp: unset;
+      overflow: visible;
+    }
+    .card-meta { display: flex; flex-wrap: wrap; gap: 10px; }
+    .meta-item { font-size: 12.5px; color: #8a8070; }
+
+    /* ── BACK TO TOP ── */
+    .back-top {
+      position: fixed;
+      bottom: 28px; right: 20px;
+      width: 44px; height: 44px;
+      background: var(--terra);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(196,113,78,0.4);
+      opacity: 0;
+      transform: translateY(10px) scale(0.9);
+      transition: opacity 0.3s, transform 0.3s;
+      z-index: 50;
+      animation: pulse 2.5s ease-in-out infinite;
+    }
+    .back-top.visible { opacity: 1; transform: translateY(0) scale(1); }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 24px 48px;
+      text-align: center;
+      border-top: 1px solid var(--sand-dark);
+      margin-top: 8px;
+    }
+    footer p { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+    footer .hostel-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--azure);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div class="loader" id="loader">
+    <span class="loader-emoji">🌊</span>
+    <div class="loader-text">Loading your guide…</div>
+    <div class="loader-dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-wave-strip">
+      <svg viewBox="0 0 600 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,22 C150,5 300,40 450,22 C525,13 570,30 600,22 L600,44 L0,44 Z" fill="white"/>
+      </svg>
+      <svg viewBox="0 0 600 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,22 C150,5 300,40 450,22 C525,13 570,30 600,22 L600,44 L0,44 Z" fill="white"/>
+      </svg>
+    </div>
+    <span class="hero-icon">🌊</span>
+    <div class="hero-badge">Your Sarandë Guide</div>
+    <h1>Welcome to<br/><em>Paradise</em></h1>
+    <p class="hero-sub">Hand-picked spots from your hostel team</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-wrapper" id="tabsWrapper">
+    <div class="tabs">
+      <button class="tab active" data-section="food">🍽 Restaurants</button>
+      <button class="tab" data-section="beaches">🏖 Beaches</button>
+      <button class="tab" data-section="todo">🗺 Sightseeing</button>
+      <button class="tab" data-section="nightlife">🌙 Nightlife</button>
+    </div>
+  </div>
+
+  <!-- ── FOOD ── -->
+  <div class="section visible" id="food">
+    <div class="section-header"><span class="icon">🍽</span><h2>Eat & <span>Drink</span></h2></div>
+    <div class="tip-box"><strong>💡 Local tip:</strong> Cash is king.👑 ALWAYS have some with you, ditch your credit card.</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-accent accent-terra"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Taverna Rinia</div><span class="card-tag tag-terra">Albanian</span></div>
+          <div class="card-desc">Classic Albanian food done right — grilled lamb, tave kosi (yogurt & lamb bake), and the freshest seafood on the promenade. No frills, just great food.</div>
+          <div class="card-meta"><span class="meta-item">📍 Rruga Skënderbeu</span><span class="meta-item">💰 Budget-friendly</span><span class="meta-item">🕐 12pm–10pm</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-sea"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Guri i Bardhë</div><span class="card-tag tag-sea">Seafood</span></div>
+          <div class="card-desc">Order the grilled octopus and the sea bass — both caught same-day. Sit on the terrace at sunset for the full experience.</div>
+          <div class="card-meta"><span class="meta-item">📍 Waterfront</span><span class="meta-item">💰 Mid-range</span><span class="meta-item">⭐ Must-try</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-olive"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Kafe Florida</div><span class="card-tag tag-olive">Café</span></div>
+          <div class="card-desc">Best espresso in town — Albanians take their coffee seriously. Great spot to people-watch in the morning before hitting the beach.</div>
+          <div class="card-meta"><span class="meta-item">📍 City Centre</span><span class="meta-item">💰 Very cheap</span><span class="meta-item">🕐 7am–8pm</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-gold"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Pizzeria Bella Vista</div><span class="card-tag tag-gold">Pizza</span></div>
+          <div class="card-desc">Wood-fired pizza with a sea view. Favourite among long-stay travellers. Try the white truffle pizza — solid value and great atmosphere.</div>
+          <div class="card-meta"><span class="meta-item">📍 Near the port</span><span class="meta-item">💰 Budget-friendly</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── BEACHES ── -->
+  <div class="section" id="beaches">
+    <div class="section-header"><span class="icon">🏖</span><h2>The Best <span>Beaches</span></h2></div>
+    <div class="tip-box"><strong>💡 Local tip:</strong> Go early (before 10am) or late afternoon — midday sun is intense. Always bring water with you!</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-accent accent-sea"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Krorëz Beach</div><span class="card-tag tag-sea">Hidden gem</span></div>
+          <div class="card-desc">One of our favorite hidden spots near Sarandë. It takes a bit of effort to get there, but that’s what keeps it quiet and untouched. The water is incredibly clear, and the whole place feels peaceful and wild at the same time. Diving is amazing — bring a mask</div>
+          <div class="card-meta"><span class="meta-item">⚓ The water way</span><span class="meta-item">🤿 Snorkelling spot</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-olive"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Shpella e pellumbave</div><span class="card-tag tag-terra">Scenic</span></div>
+          <div class="card-desc">Another of our top picks we want something special. The water is incredibly clear, and the whole place feels calm and untouched compared to the busy beaches. It’s perfect if you just want to swim, relax, and enjoy nature. Get your legs ready for the steps! Same as the previous, don't forget a mask.</div>
+          <div class="card-meta"><span class="meta-item">🚗 10 min by taxi</span><span class="meta-item">🤿 Snorkelling spot</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-gold"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Orange Beach Club</div><span class="card-tag tag-olive">🔥 Alive</span></div>
+          <div class="card-desc">You’ve got to hit Orange Beach Club if you want an atmosphere that actually lives up to the hype. There is nothing like being in the middle of that open-air energy just as the music peaks and the sun hits the waves. It’s polished but still wild enough to keep you there long after dark. If you want the one spot in Ksamil that feels truly electric, that’s the move.</div>
+          <div class="card-meta"><span class="meta-item">🚌 Bus from centre (€2)</span><span class="meta-item">⭐ Don't miss</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-terra"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Kodër Beach</div><span class="card-tag tag-gold">🚶 Walking</span></div>
+          <div class="card-desc">f you're looking for a spot that feels a bit more "local" and lived-in, you should definitely check out Kodër Beach. It’s right on the edge of the city, so you get this great mix of convenience without the intense tourist-trap feel of the main strip. The water is surprisingly clear for being so close to town, and there are some fantastic little seafood spots tucked right along the shore. Honestly, if you want a day that feels easy, authentic, and just a few steps away from where everything is happening, Kodër is a solid choice.</div>
+          <div class="card-meta"><span class="meta-item">📍 Just around the corner</span><span class="meta-item">🌿 Very peaceful</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SIGHTSEEING ── -->
+  <div class="section" id="todo">
+    <div class="section-header"><span class="icon">🗺</span><h2>Things <span>To Do</span></h2></div>
+    <div class="tip-box"><strong>💡 Local tip:</strong> The ancient ruins of Butrint are only 20 min south and completely unmissable. Budget a half-day for it.</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-accent accent-olive"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Butrint National Park</div><span class="card-tag tag-olive">UNESCO</span></div>
+          <div class="card-desc">Ancient Greek and Roman ruins inside a stunning nature reserve. Walk among 2,500-year-old temples, theatres, and Byzantine basilicas.</div>
+          <div class="card-meta"><span class="meta-item">🚌 Bus or taxi, ~€5</span><span class="meta-item">🎟 Entrance ~€4</span><span class="meta-item">⏱ Half-day</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-terra"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Lëkurësi Castle</div><span class="card-tag tag-terra">Views</span></div>
+          <div class="card-desc">A 16th-century Ottoman castle above Sarandë with 360° views over the bay and Corfu Island. Breathtaking at sunset.</div>
+          <div class="card-meta"><span class="meta-item">🚗 10 min by taxi</span><span class="meta-item">🌅 Best at sunset</span><span class="meta-item">🆓 Free entry</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-sea"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Day Trip to Corfu</div><span class="card-tag tag-sea">Ferry</span></div>
+          <div class="card-desc">Corfu, Greece is just 45 minutes away by ferry! Explore the Old Town, eat Greek food, and be back by evening.</div>
+          <div class="card-meta"><span class="meta-item">⛴ ~45 min ferry</span><span class="meta-item">💰 From €20 return</span><span class="meta-item">📍 Sarandë Port</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-night"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Blue Eye Spring</div><span class="card-tag tag-night">Nature</span></div>
+          <div class="card-desc">A mystical natural spring in the mountains — the water is so blue it looks unreal. A cold, refreshing swim surrounded by forested hills.</div>
+          <div class="card-meta"><span class="meta-item">🚗 ~1hr by car</span><span class="meta-item">🌿 Nature reserve</span><span class="meta-item">🎟 Small entry fee</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NIGHTLIFE ── -->
+  <div class="section" id="nightlife">
+    <div class="section-header"><span class="icon">🌙</span><h2>After <span>Dark</span></h2></div>
+    <div class="tip-box"><strong>💡 Local tip:</strong> Things don't get going until midnight. Pre-drink at the promenade bars — drinks are half the price before the clubs.</div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-accent accent-night"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Oxygen Club</div><span class="card-tag tag-night">Club</span></div>
+          <div class="card-desc">Sarandë's biggest open-air club. DJ sets, bottle service, and a beautiful crowd. The main summer spot — worth going at least once.</div>
+          <div class="card-meta"><span class="meta-item">📍 Promenade strip</span><span class="meta-item">🕐 From midnight</span><span class="meta-item">💰 Free entry</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-sea"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Promenade Bars</div><span class="card-tag tag-sea">Bar Crawl</span></div>
+          <div class="card-desc">Dozens of open-air bars line the seafront. Grab a cold Birra Tirana or Aperol Spritz around 9pm and see where the night takes you.</div>
+          <div class="card-meta"><span class="meta-item">📍 Waterfront</span><span class="meta-item">💰 Very cheap</span><span class="meta-item">🕐 9pm onwards</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-terra"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Rooftop Cocktail Bars</div><span class="card-tag tag-terra">Cocktails</span></div>
+          <div class="card-desc">Hotel rooftops with incredible bay views. Perfect for a sunset cocktail before the night begins. Ask us at reception which one is hottest this season!</div>
+          <div class="card-meta"><span class="meta-item">📍 Hotel district</span><span class="meta-item">🍹 Cocktails ~€5–8</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-gold"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Ksamil Nightlife</div><span class="card-tag tag-gold">Beach party</span></div>
+          <div class="card-desc">In peak summer, Ksamil beach turns into one big beach party at night. Dance with your feet in the water — pure Albanian summer.</div>
+          <div class="card-meta"><span class="meta-item">🚌 Bus or taxi</span><span class="meta-item">🏖 Beach vibes</span><span class="meta-item">🕐 Summer only</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="hostel-name">✦ Saranda Boutique Hostel ✦</div>
+    <p style="margin-top:6px;">Made with love for our guests in Sarandë 🇦🇱</p>
+    <p style="margin-top:4px; font-size:12px;">Come chat with us at reception for more tips!</p>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button class="back-top" id="backTop" aria-label="Back to top">↑</button>
+
+  <script>
+    // ── 1. LOADER — hides after page loads, then triggers card animations ──
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+        observeCards();
+      }, 900);
+    });
+
+    // ── 2. TAB SWITCHING — staggered card entrance per section ──
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', function () {
+        const targetId = this.dataset.section;
+
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+
+        const target = document.getElementById(targetId);
+        target.classList.add('visible');
+
+        // reset cards so they animate in fresh
+        target.querySelectorAll('.card').forEach(c => {
+          c.classList.remove('in-view');
+          // force reflow so transition replays
+          void c.offsetWidth;
+        });
+
+        // stagger them in
+        target.querySelectorAll('.card').forEach((c, i) => {
+          setTimeout(() => c.classList.add('in-view'), i * 90);
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // ── 3. INTERSECTION OBSERVER — cards slide in as they scroll into view ──
+    function observeCards() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+
+      document.querySelectorAll('.card').forEach(card => observer.observe(card));
+    }
+
+    // ── 4. RIPPLE EFFECT + expand/collapse description on card tap ──
+    document.querySelectorAll('.card').forEach(card => {
+      card.addEventListener('click', function (e) {
+        // toggle description clamp
+        const desc = this.querySelector('.card-desc');
+        if (desc) desc.classList.toggle('expanded');
+
+        // spawn ripple at tap position
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple-el';
+        const rect = this.getBoundingClientRect();
+        ripple.style.top  = (e.clientY - rect.top)  + 'px';
+        ripple.style.left = (e.clientX - rect.left) + 'px';
+        this.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove());
+      });
+    });
+
+    // ── 5. STICKY TABS — add shadow when tabs stick to top ──
+    const tabsWrapper = document.getElementById('tabsWrapper');
+    const stickyObserver = new IntersectionObserver(
+      ([e]) => tabsWrapper.classList.toggle('stuck', e.intersectionRatio < 1),
+      { threshold: [1], rootMargin: '-1px 0px 0px 0px' }
+    );
+    stickyObserver.observe(tabsWrapper);
+
+    // ── 6. BACK TO TOP BUTTON ──
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 320);
+    });
+    backTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>
