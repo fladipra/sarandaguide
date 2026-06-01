@@ -287,7 +287,10 @@
     .accent-sea   { background: var(--sea); }
     .accent-olive { background: var(--olive); }
     .accent-night { background: var(--night); }
-    .accent-gold  { background: #c9a84c; }
+    .accent-gold  { background: #c9a84c; } 
+    .accent-azure { background: var(--azure); } 
+    .accent-terra-light { background: var(--terra-light); }
+    .accent-sand { background: var(--sand); }
 
     .card-body { padding: 16px; flex: 1; min-width: 0; }
     .card-top {
@@ -314,12 +317,15 @@
       white-space: nowrap;
       flex-shrink: 0;
     }
+    .tag-sand { background: #fff7e3; color: #ebcb85; }
+    .tag-azure { background: #e2f0f7; color: var(--azure); }
     .tag-terra { background: #faeae2; color: var(--terra); }
     .tag-sea   { background: #e2f0f7; color: var(--sea); }
     .tag-olive { background: #eaf0e2; color: var(--olive); }
     .tag-night { background: #e2e8f0; color: var(--night); }
     .tag-gold  { background: #f7f0e2; color: #a07820; }
-
+    .tag-terra-light { background: #faeae2; color: var(--terra-light); }
+    
     .card-desc {
       font-size: 14px;
       color: var(--muted);
@@ -421,8 +427,8 @@
         <div class="card-accent accent-gold"></div>
         <div class="card-body">
           <div class="card-top"><div class="card-name">Finest Grill</div><span class="card-tag tag-gold">Grilled</span></div>
-          <div class="card-desc">skip the tourist strip and find yourself a real grill restaurant — the kind where the meat comes straight off the charcoal and the portions make you question your life choices. Finest Grill is the real deal. No gimmicks, just perfectly seasoned meat, cold beer, and flawless local hospitality. If you leave here hungry, that's entirely on you.</div>
-          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/fALaaPqN31yNdTzT9" target="_blank">📍 24 Gjergj Araniti St</a><span class="meta-item">💰 Budget-friendly</span></div>
+          <div class="card-desc">Skip the tourist strip and find yourself a real grill restaurant — the kind where the meat comes straight off the charcoal and the portions make you question your life choices. Finest Grill is the real deal. No gimmicks, just perfectly seasoned meat, cold beer, and flawless local hospitality. If you leave here hungry, that's entirely on you.<br><br><em>P.S. Try the finest salad and fries. You WON'T regret it!</em></div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/fALaaPqN31yNdTzT9" target="_blank">📍 Gjergj Araniti St</a><span class="meta-item">💰 Budget-friendly</span></div>
         </div> 
       </div>
       <div class="card">
@@ -436,9 +442,25 @@
       <div class="card">
         <div class="card-accent accent-olive"></div>
         <div class="card-body">
-          <div class="card-top"><div class="card-name">Fast Food Artisti</div><span class="card-tag tag-olive">Albanian</span></div>
+          <div class="card-top"><div class="card-name">Fast Food Artisti</div><span class="card-tag tag-olive">Cheap</span></div>
           <div class="card-desc">Fast Food Artisti is the perfect spot just around the corner when you need a quick, delicious bite without breaking the bank. The food is incredibly cheap and satisfying, making it a go-to for an easy meal. Best of all, you get to enjoy your food alongside a beautiful, sweeping view of the town and the sea.</div>
           <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/j33cWS55XjLm1cmS6" target="_blank">📍 Nearby</a><span class="meta-item">🍔 Fast food</span></div>
+        </div>
+      </div>
+       <div class="card">
+        <div class="card-accent accent-azure"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Taverna Fish Filipi</div><span class="card-tag tag-azure">Seafood</span></div>
+          <div class="card-desc">If you’re craving seafood in Sarandë, this place is one I’d actually recommend. The fish at Taverna Fish Filipi is super fresh—you can really taste the difference—and everything feels simple and authentic rather than touristy. It’s the kind of spot where you just sit back, enjoy good food, and don’t overthink it. Definitely worth it if you want a proper seaside meal.</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/7unDGAy5ENkhWXek8" target="_blank">📍 Ismail Qemali St</a><span class="meta-item">🍴 Casual dining</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-terra-light"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Bake'n Grill</div><span class="card-tag tag-terra-light">Halal</span></div>
+          <div class="card-desc">To my Muslim brothers and sisters, if you’re in Sarandë and looking for a halal spot you can trust, Bake’n Grill is definitely worth checking out. It’s one of those places where you can relax and enjoy your meal without worrying, and the food is actually really good too—fresh, flavorful, and satisfying. It feels casual and welcoming, like a place you’d come back to more than once during your stay.</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/27tD5YbpiRQp4SeaA" target="_blank">📍Trust the pin</a><span class="meta-item">🥩 Grilled</span></div>
         </div>
       </div>
     </div>
@@ -561,6 +583,38 @@
     <div class="section-header"><span class="icon">🌙</span><h2>After <span>Dark</span></h2></div>
     <div class="tip-box"><strong>💡 Local tip:</strong> Things don't get going until midnight. Pre-drink at the promenade bars — drinks are half the price of the clubs.</div>
     <div class="cards">
+      <div class="card">
+        <div class="card-accent accent-terra-light"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Orange Club</div><span class="card-tag tag-terra-light">---</span></div>
+          <div class="card-desc">---</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/rbJxcTjuEvHaaAGA9" target="_blank">📍 ---</a><span class="meta-item">---</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-sand"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Lost Seaside</div><span class="card-tag tag-sand">-kush esht ai-</span></div>
+          <div class="card-desc">---</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/As7fM2xUPte6ciBE9" target="_blank">📍 ---</a><span class="meta-item">---</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-gold"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Hojza Lounge Terrace</div><span class="card-tag tag-gold">---</span></div>
+          <div class="card-desc">---</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/63Z3rK4UepbK83Wn9" target="_blank">📍 ---</a><span class="meta-item">---</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-night"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Orange Club</div><span class="card-tag tag-night">---</span></div>
+          <div class="card-desc">---</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/rbJxcTjuEvHaaAGA9" target="_blank">📍 ---</a><span class="meta-item">---</span></div>
+        </div>
+      </div>
       
     </div>
   </div>
