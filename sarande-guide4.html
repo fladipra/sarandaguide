@@ -20,7 +20,8 @@
       --text: #2a2a2a;
       --muted: #7a7060;
       --red: #772121;
-      
+      --shrek: #4fc472;
+      --mut: #917c5e;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -293,7 +294,10 @@
     .accent-azure { background: var(--azure); } 
     .accent-terra-light { background: var(--terra-light); }
     .accent-sand { background: var(--sand); }
-    .accent-red { background: var(--red); }
+    .accent-red { background: var(--red); } 
+    .accent-shrek { background: var(--shrek); }
+    .accent-muted { background: var(--muted); }
+    .accent-mut { background: var(--mut); }
 
     .card-body { padding: 16px; flex: 1; min-width: 0; }
     .card-top {
@@ -329,6 +333,8 @@
     .tag-gold  { background: #f7f0e2; color: #a07820; }
     .tag-terra-light { background: #faeae2; color: var(--terra-light); }
     .tag-red  { background: #f7f0e2; color: var(--red); }
+    .tag-shrek { background: #e4f0d4; color: var(--shrek); }
+    .tag-mut { background: #cec4acc4; color: var(--mut); }
 
     .card-desc {
       font-size: 14px;
@@ -444,6 +450,22 @@
         </div>
       </div>
       <div class="card">
+        <div class="card-accent accent-red"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Taverna Labëria</div><span class="card-tag tag-red">Grilled & skewered</span></div>
+          <div class="card-desc">Taverna Labëria is one of those places I keep going back to when I want something that actually feels real. They’ve got a bit of everything on the menu, but the moment you try their grilled and skewered meats, you understand what they’re really about. It’s not just Albanian food in general—it’s proper Labëria-style cooking, with that rich, smoky flavor and simple recipes done right. Everything tastes like it’s been made with care, not rushed for tourists. The whole place has this warm, local feel where you can just sit, eat properly, and enjoy it without overthinking anything.</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/Vdwhvzwc2jTqEY5f7" target="_blank">📍 Mitat Hoxha St</a><span class="meta-item">🍖 Laberia tradition</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-accent accent-shrek"></div>
+        <div class="card-body">
+          <div class="card-top"><div class="card-name">Green Life Market</div><span class="card-tag tag-shrek">Plant based</span></div>
+          <div class="card-desc">Well of course we could never forget about all of our vegan guests and clients and I have just the place for you. Green Life Market isn’t just a quick stop, it’s a proper spot where y'all can actually sit down and enjoy a full meal without feeling limited. The menu is built around fresh, plant-based options that don’t feel like compromises—you’re getting real dishes, real flavors, and a proper dining experience. It’s the kind of place where  can eat normally, comfortably, and actually have choices, not just sides. Simple, fresh, and genuinely satisfying.</div>
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/AWse2LZvh52AXtir5" target="_blank">📍 Just there</a><span class="meta-item">🫑 Vegan</span></div>
+        </div>
+      </div>
+      <div class="card">
         <div class="card-accent accent-olive"></div>
         <div class="card-body">
           <div class="card-top"><div class="card-name">Fast Food Artisti</div><span class="card-tag tag-olive">Cheap</span></div>
@@ -525,11 +547,11 @@
     <div class="cards">
       <div class="card"> 
 
-        <div class="card-accent accent-olive"></div> 
+        <div class="card-accent accent-night"></div> 
 
         <div class="card-body"> 
 
-          <div class="card-top"><div class="card-name">Butrint National Park</div><span class="card-tag tag-olive">UNESCO</span></div> 
+          <div class="card-top"><div class="card-name">Butrint National Park</div><span class="card-tag tag-night">UNESCO</span></div> 
 
           <div class="card-desc">Trust me, don’t miss Butrint National Park. One minute you’re surrounded by quiet, untouched nature, and the next you’re walking through 2,500-year-old Greek and Roman ruins—temples, theatres, even a Byzantine basilica. It’s peaceful, scenic, and feels completely different from the typical beach spots around here, like you’ve stepped into another time..</div> 
 
@@ -557,15 +579,15 @@
 
       <div class="card"> 
 
-        <div class="card-accent accent-sea"></div> 
+        <div class="card-accent accent-mut"></div> 
 
         <div class="card-body"> 
 
-          <div class="card-top"><div class="card-name"> </div><span class="card-tag tag-sea"> </span></div> 
+          <div class="card-top"><div class="card-name">Gjirokastër</div><span class="card-tag tag-mut">Day trip escape</span></div> 
 
-          <div class="card-desc"> </div> 
+          <div class="card-desc">Gjirokastër is a perfect day trip if you want a break from the coast and something more authentic, with its stone houses, narrow streets, and the castle overlooking the city giving it a real step-back-in-time feel. It’s the kind of place you explore slowly, just walking and taking everything in. The food is also part of the experience, with traditional dishes and rich homemade flavors, but it’s worth being selective since some touristy spots don’t always match the quality—find a more authentic place and it can easily become one of the highlights of your visit.</div> 
 
-          <div class="card-meta"><span class="meta-item"> </span><span class="meta-item"> </span><span class="meta-item"> </span></div> 
+          <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/9LvE9Xdh8fEPJfdp8" target="_blank">📍 Back in history</a><span class="meta-item">🏛️ Old town vibes</span><span class="meta-item"> </span></div> 
 
         </div> 
 
@@ -573,20 +595,17 @@
 
       <div class="card"> 
 
-        <div class="card-accent accent-night"></div> 
+        <div class="card-accent accent-olive"></div> 
 
         <div class="card-body"> 
 
-          <div class="card-top"><div class="card-name">Blue Eye Spring</div><span class="card-tag tag-night">Nature</span></div> 
+          <div class="card-top"><div class="card-name">Blue Eye Spring</div><span class="card-tag tag-olive">Nature</span></div> 
 
           <div class="card-desc">You should definitely check out Blue Eye (Syri i Kaltër) while you’re here. It’s this hidden spring up in the mountains, and the water is so insanely blue it almost doesn’t look real. You’re not allowed to swim right at the source, but if you walk a bit further down the stream, you can take a dip there—it’s freezing cold, but super refreshing. Plus, the whole area is surrounded by quiet forest, so it really feels like a peaceful escape.</div> 
 
           <div class="card-meta"><span class="meta-item">🚗 ~40min by car</span><span class="meta-item">🌿 Nature reserve</span><span class="meta-item">🎟 Small entry fee</span><a class="meta-item" href="https://maps.app.goo.gl/2QboM3aoDJ9vJy8W8" target="_blank">📍 Location</a></div> 
-
         </div> 
-
       </div> 
-      
     </div>
   </div>
 
@@ -623,7 +642,7 @@
         <div class="card-accent accent-night"></div>
         <div class="card-body">
           <div class="card-top"><div class="card-name">Rock & Blues</div><span class="card-tag tag-night">Day to night</span></div>
-          <div class="card-desc">Rock & Blues is one of those spots that changes completely depending on the time of day. During the day it’s a relaxed café/bar where you can just sit, grab a drink, and take it slow. But at night it turns into a proper club with music, lights, and a full party atmosphere. It’s an easy go-to no matter what mood you’re in. And personally, the music playlist it FIRE</div>
+          <div class="card-desc">Rock & Blues is one of those spots that changes completely depending on the time of day. During the day it’s a relaxed café/bar where you can just sit, grab a drink, and take it slow. But at night it turns into a proper club with music, lights, and a full party atmosphere. It’s an easy go-to no matter what mood you’re in. And personally, the music playlist is FIRE</div>
           <div class="card-meta"><a class="meta-item" href="https://maps.app.goo.gl/rbJxcTjuEvHaaAGA9" target="_blank">📍 Central spot</a><span class="meta-item">☀️ Café → 🌙 Club</span></div>
         </div>
       </div>
